@@ -35,7 +35,7 @@ public class PlaceholderAPIExtensionFactory {
 
     private boolean isAvailable() {
         try {
-            Class.forName("");
+            Class.forName("me.clip.placeholderapi.PlaceholderAPI");
             return true;
         } catch (ClassNotFoundException e) {
             return false;
