@@ -31,7 +31,7 @@ import java.util.Optional;
  *
  * @author AuroraLS3
  */
-public class NewExtensionFactory {
+public class PlaceholderAPIExtensionFactory {
 
     private boolean isAvailable() {
         try {
@@ -44,7 +44,7 @@ public class NewExtensionFactory {
 
     public Optional<DataExtension> createExtension() {
         if (isAvailable()) {
-            return Optional.of(new NewExtension());
+            return Optional.of(new PlaceholderAPIExtension());
         }
         return Optional.empty();
     }
