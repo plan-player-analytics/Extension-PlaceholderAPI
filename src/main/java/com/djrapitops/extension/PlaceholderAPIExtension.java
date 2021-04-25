@@ -76,7 +76,7 @@ public class PlaceholderAPIExtension implements DataExtension {
         return queryService.query(sql, statement -> {
             statement.setString(1, "PlaceholderAPI");
             statement.setString(2, serverUUID.toString());
-            try (ResultSet set = statement.getResultSet()) {
+            try (ResultSet set = statement.executeQuery()) {
                 List<String> storedPlaceholders = new ArrayList<>();
                 while (set.next()) storedPlaceholders.add(set.getString("placeholder"));
                 return storedPlaceholders;
