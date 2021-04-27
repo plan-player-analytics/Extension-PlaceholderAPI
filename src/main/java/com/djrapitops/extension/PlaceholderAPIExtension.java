@@ -52,7 +52,7 @@ public class PlaceholderAPIExtension implements DataExtension {
     private List<String> trackedPlaceholders;
 
     public PlaceholderAPIExtension() {
-        trackedPlaceholders = SettingsService.getInstance().getStringList("PlaceholderAPI.Placeholders", () -> Collections.singletonList("%example_placeholder%"));
+        trackedPlaceholders = SettingsService.getInstance().getStringList("PlaceholderAPI.Tracked_player_placeholders", () -> Collections.singletonList("%example_placeholder%"));
     }
 
     public PlaceholderAPIExtension(boolean forTesting) {}
