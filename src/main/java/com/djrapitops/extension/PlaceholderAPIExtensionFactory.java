@@ -23,6 +23,7 @@
 package com.djrapitops.extension;
 
 import com.djrapitops.plan.extension.DataExtension;
+import com.djrapitops.plan.settings.ListenerService;
 
 import java.util.Optional;
 
@@ -44,6 +45,7 @@ public class PlaceholderAPIExtensionFactory {
 
     public Optional<DataExtension> createExtension() {
         if (isAvailable()) {
+            ListenerService.getInstance().registerListenerForPlan(new PlayerJoinWarmUpListener());
             return Optional.of(new PlaceholderAPIExtension());
         }
         return Optional.empty();
