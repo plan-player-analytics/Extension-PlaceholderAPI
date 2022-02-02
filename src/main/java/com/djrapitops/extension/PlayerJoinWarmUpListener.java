@@ -3,6 +3,7 @@ package com.djrapitops.extension;
 import com.djrapitops.plan.settings.SettingsService;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -17,7 +18,7 @@ public class PlayerJoinWarmUpListener implements Listener {
         warmedUpPlaceholders = SettingsService.getInstance().getStringList("PlaceholderAPI.Load_these_placeholders_on_join", () -> Collections.singletonList("%plan_server_uuid%"));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         PlaceholderAPI.setPlaceholders(event.getPlayer(), warmedUpPlaceholders.toString());
     }
