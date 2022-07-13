@@ -1,4 +1,4 @@
-package com.djrapitops.extension;
+package net.playeranalytics.extension.placeholderapi;
 
 import com.djrapitops.plan.settings.SettingsService;
 import me.clip.placeholderapi.PlaceholderAPI;
