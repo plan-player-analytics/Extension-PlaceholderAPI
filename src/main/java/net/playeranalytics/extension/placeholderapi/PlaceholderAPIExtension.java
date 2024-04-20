@@ -50,9 +50,12 @@ import java.util.UUID;
 public class PlaceholderAPIExtension implements DataExtension {
 
     private List<String> trackedPlaceholders;
+    private List<String> invalidPlaceholderValues;
 
     public PlaceholderAPIExtension() {
-        trackedPlaceholders = SettingsService.getInstance().getStringList("PlaceholderAPI.Tracked_player_placeholders", () -> Collections.singletonList("%example_placeholder%"));
+        SettingsService settingsService = SettingsService.getInstance();
+        trackedPlaceholders = settingsService.getStringList("PlaceholderAPI.Tracked_player_placeholders", () -> Collections.singletonList("%example_placeholder%"));
+        invalidPlaceholderValues = settingsService.getStringList("PlaceholderAPI.Skip_storing_invalid_placeholder_values", () -> Collections.singletonList("Missing player info"));
     }
 
     public PlaceholderAPIExtension(boolean forTesting) {}
@@ -102,6 +105,14 @@ public class PlaceholderAPIExtension implements DataExtension {
         // Add new values of placeholders
         for (String trackedPlaceholder : trackedPlaceholders) {
             String value = PlaceholderAPI.setPlaceholders(Bukkit.getPlayer(playerUUID), trackedPlaceholder);
+
+            // Skip storing values that don't have good values
+            if (value.isEmpty()
+                    || value.equals(trackedPlaceholder)
+                    || invalidPlaceholderValues.contains(value)) {
+                continue;
+            }
+
             builder.addValue(String.class, valueBuilder(removeEnds(trackedPlaceholder))
                     .description("Value of " + trackedPlaceholder)
                     .icon(Icon.called("dot-circle").of(Color.LIGHT_BLUE).build())
